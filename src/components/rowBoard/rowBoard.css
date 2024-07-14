@@ -1,0 +1,7 @@
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 400px;
+    height: 50px;
+}
