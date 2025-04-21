@@ -2,15 +2,12 @@ import React from "react";
 import "./rowBoard.css";
 import Square from "../square/Square";
 
-export default function RowBoard({ row }) {
-  const squares = [];
-  for (let i = 0; i < 8; i++) {
-    squares.push(<Square key={i} index={i + row} />);
-  }
-  
+export default function RowBoard({ rowIdx, rowArray }) {
   return (
     <div className="row">
-      {squares}
+      {rowArray.map((piece, colIdx) => (
+        <Square key={colIdx} rowIdx={rowIdx} colIdx={colIdx} piece={piece} />
+      ))}
     </div>
   );
 }

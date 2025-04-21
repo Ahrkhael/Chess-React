@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "./board.css";
 import RowBoard from "../rowBoard/RowBoard";
 
+// Tablero inicial con sus piezas
+// Letras minúsculas piezas negras
+// Letras mayúsculas piezas blancas
+const initialBoard = [
+  ["r", "n", "b", "q", "k", "b", "n", "r"],
+  ["p", "p", "p", "p", "p", "p", "p", "p"],
+  [null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null],
+  ["P", "P", "P", "P", "P", "P", "P", "P"],
+  ["R", "N", "B", "Q", "K", "B", "N", "R"],
+];
+
 export default function Board() {
-  const rows = [];
-  for (let j = 0; j < 8; j++) {
-    rows.push(<RowBoard key={j} row={j + 1} />);
-    if((j + 1) % 8 === 0) {
-      rows.push(<br key={`br-${j}`} />);
-    }
-  }
-  
+  const [board, setBoard] = useState(initialBoard);
+
   return (
     <div id="board">
-      {rows}
+      {board.map((rowArray, rowIdx) => (
+        <RowBoard key={rowIdx} rowIdx={rowIdx} rowArray={rowArray} />
+      ))}
     </div>
   );
 }
