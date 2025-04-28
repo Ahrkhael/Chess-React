@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./board.css";
-import RowBoard from "../rowBoard/RowBoard";
+//import RowBoard from "../rowBoard/RowBoard";
+import Square from "../square/Square";
 
 // Tablero inicial con sus piezas
 // Letras minúsculas piezas negras
@@ -18,11 +19,35 @@ const initialBoard = [
 
 export default function Board() {
   const [board, setBoard] = useState(initialBoard);
+  const [isSquareSelected, setSquareSelected] = useState(null);
+
+  const handleSquareClick = (row, col, piece) => {
+    if (!isSquareSelected) {
+      if (piece) {
+        console.log(isSquareSelected, "----", row, "----", col);
+        setSquareSelected({ row, col, piece });
+      }
+    } else {
+      console.log(isSquareSelected, "----", row, "----", col);
+      //tryToMove(isSquareSelected, row, col)
+      setSquareSelected(null);
+    }
+  };
 
   return (
     <div id="board">
       {board.map((rowArray, rowIdx) => (
-        <RowBoard key={rowIdx} rowIdx={rowIdx} rowArray={rowArray} />
+        <div className="row" key={rowIdx}>
+          {rowArray.map((piece, colIdx) => (
+            <Square
+              key={colIdx}
+              rowIdx={rowIdx}
+              colIdx={colIdx}
+              piece={piece}
+              onClick={handleSquareClick}
+            />
+          ))}
+        </div>
       ))}
     </div>
   );
