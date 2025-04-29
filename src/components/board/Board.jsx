@@ -19,19 +19,44 @@ const initialBoard = [
 
 export default function Board() {
   const [board, setBoard] = useState(initialBoard);
-  const [isSquareSelected, setSquareSelected] = useState(null);
+  const newBoard = board.map((row) => row.slice());
+
+  const [turn, setTurn] = useState("white");
+
+  const [squareSelected, setSquareSelected] = useState(null);
 
   const handleSquareClick = (row, col, piece) => {
-    if (!isSquareSelected) {
+    if (!squareSelected) {
       if (piece) {
-        console.log(isSquareSelected, "----", row, "----", col);
-        setSquareSelected({ row, col, piece });
+        if (turn === "white") {
+          if (piece === piece.toUpperCase()) {
+            setSquareSelected({ row, col, piece });
+          }
+        } else {
+          if (piece === piece.toLowerCase()) {
+            setSquareSelected({ row, col, piece });
+          }
+        }
       }
     } else {
-      console.log(isSquareSelected, "----", row, "----", col);
-      //tryToMove(isSquareSelected, row, col)
+      // console.log(squareSelected, "----", row, "----", col, "----", piece);
+      tryToMove(squareSelected, { row, col, piece });
       setSquareSelected(null);
     }
+  };
+
+  const tryToMove = (squareOrigin, squareDestiny) => {
+    const pieceMoving = squareOrigin.piece;
+    newBoard[squareOrigin.row][squareOrigin.col] = null;
+    newBoard[squareDestiny.row][squareDestiny.col] = pieceMoving;
+
+    if (turn === "white") {
+      setTurn("black");
+    } else {
+      setTurn("white");
+    }
+
+    setBoard(newBoard);
   };
 
   return (
