@@ -1,16 +1,23 @@
+// Devuelve movimientos legales del tablero
 export const getLegalMoves = (board, turn) => {
   //console.log(board, "----", turn);
   const moves = [];
-  for (let r = 0; r < 8; r++) {
-    for (let c = 0; c < 8; c++) {
-      const piece = board[r][c];
+  for (let row = 0; row < 8; row++) {
+    for (let col = 0; col < 8; col++) {
+      const piece = board[row][col];
       if (piece && pieceColor(piece) === turn) {
-        console.log(piece);
+        movesForPiece(piece, { row, col }, board, moves);
       }
     }
   }
+  console.log(moves);
 };
 
+/*
+ * Function to get the player who control that piece
+ * @param {string} piece Letter which represents the chess piece
+ * @return {string} "white" or "black" depending on the piece
+ */
 const pieceColor = (piece) => {
   if (
     piece === "k" ||
@@ -26,4 +33,40 @@ const pieceColor = (piece) => {
   }
 };
 
-const movesForPiece = (piece, row, col, board) => {};
+/*
+ * Function to get the movements for a specific piece
+ * @param {string} piece Letter which represents the chess piece
+ * @param {object} squareOrigin Pair { row, col } of the square where the piece is moving from
+ * @param {array} board Actual board before the movement
+ * @param {array} moves All the possible moves until that moment
+ */
+const movesForPiece = (piece, squareOrigin, board, moves) => {
+  if (piece.toLowerCase() === "p") {
+    getPawnMovements(piece, squareOrigin, board, moves);
+  }
+};
+
+/*
+ * Function to get the movement for the pawns
+ * @param {string} piece Letter which represents the chess piece
+ * @param {object} squareOrigin Pair { row, col } of the square where the piece is moving from
+ * @param {array} board Actual board before the movement
+ * @param {array} moves All the possible moves until that moment
+ */
+const getPawnMovements = (piece, squareOrigin, board, moves) => {
+  if (pieceColor(piece) === "black") {
+    if (squareOrigin.row === 1) {
+      moves.push({ row: 2, col: squareOrigin.col });
+      moves.push({ row: 3, col: squareOrigin.col });
+    } else {
+      moves.push({ row: squareOrigin.row + 1, col: squareOrigin.col });
+    }
+  } else {
+    if (squareOrigin.row === 6) {
+      moves.push({ row: 5, col: squareOrigin.col });
+      moves.push({ row: 4, col: squareOrigin.col });
+    } else {
+      moves.push({ row: squareOrigin.row - 1, col: squareOrigin.col });
+    }
+  }
+};
