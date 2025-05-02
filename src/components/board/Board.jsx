@@ -2,20 +2,8 @@ import React, { useState } from "react";
 import "./board.css";
 //import RowBoard from "../rowBoard/RowBoard";
 import Square from "../square/Square";
-
-// Tablero inicial con sus piezas
-// Letras minúsculas piezas negras
-// Letras mayúsculas piezas blancas
-const initialBoard = [
-  ["r", "n", "b", "q", "k", "b", "n", "r"],
-  ["p", "p", "p", "p", "p", "p", "p", "p"],
-  [null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null, null],
-  ["P", "P", "P", "P", "P", "P", "P", "P"],
-  ["R", "N", "B", "Q", "K", "B", "N", "R"],
-];
+import { getLegalMoves } from "../../utils/legalMoves";
+import { initialBoard } from "../../constants/StartGame";
 
 export default function Board() {
   const [board, setBoard] = useState(initialBoard);
@@ -50,11 +38,14 @@ export default function Board() {
     newBoard[squareOrigin.row][squareOrigin.col] = null;
     newBoard[squareDestiny.row][squareDestiny.col] = pieceMoving;
 
+    // Cambiamos el turno
     if (turn === "white") {
       setTurn("black");
     } else {
       setTurn("white");
     }
+
+    getLegalMoves(newBoard, turn);
 
     setBoard(newBoard);
   };
