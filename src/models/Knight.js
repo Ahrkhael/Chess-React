@@ -5,7 +5,7 @@
  * @param {array} board Actual board before the movement
  * @return {array} moves All the possible moves until that moment
  */
-export const getPawnMovements = (piece, squareOrigin, board) => {
+export const getKnightMovements = (piece, squareOrigin, board) => {
   const moves = [];
   if (pieceColorSquare(piece) === "black") {
     if (squareOrigin.row === 1) {
@@ -45,9 +45,9 @@ export const getPawnMovements = (piece, squareOrigin, board) => {
  * @return {string} "white" or "black" depending on the piece or null if other case
  */
 const pieceColorSquare = (piece) => {
-  if (piece === "p") {
+  if (piece === "n") {
     return "black";
-  } else if (piece === "P") {
+  } else if (piece === "N") {
     return "white";
   } else {
     return null;
