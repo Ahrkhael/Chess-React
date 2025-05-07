@@ -1,5 +1,5 @@
 /*
- * Function to get the movements for the pawns
+ * Function to get the movements for the knights
  * @param {string} piece Letter which represents the chess piece
  * @param {object} squareOrigin Pair { row, col } of the square where the piece is moving from
  * @param {array} board Actual board before the movement
@@ -7,34 +7,11 @@
  */
 export const getKnightMovements = (piece, squareOrigin, board) => {
   const moves = [];
-  if (pieceColorSquare(piece) === "black") {
-    if (squareOrigin.row === 1) {
-      if (pieceColorSquare(board[2][squareOrigin.col]) !== "white") {
-        moves.push({ row: 2, col: squareOrigin.col });
-      }
-      if (pieceColorSquare(board[3][squareOrigin.col]) !== "white") {
-        moves.push({ row: 3, col: squareOrigin.col });
-      }
-    } else if (
-      pieceColorSquare(board[squareOrigin.row + 1][squareOrigin.col]) !==
-      "white"
-    ) {
-      moves.push({ row: squareOrigin.row + 1, col: squareOrigin.col });
-    }
-  } else if (pieceColorSquare(piece) === "white") {
-    if (squareOrigin.row === 6) {
-      if (pieceColorSquare(board[5][squareOrigin.col]) !== "black") {
-        moves.push({ row: 5, col: squareOrigin.col });
-      }
-      if (pieceColorSquare(board[4][squareOrigin.col]) !== "black") {
-        moves.push({ row: 4, col: squareOrigin.col });
-      }
-    } else if (
-      pieceColorSquare(board[squareOrigin.row - 1][squareOrigin.col]) !==
-      "black"
-    ) {
-      moves.push({ row: squareOrigin.row - 1, col: squareOrigin.col });
-    }
+  console.log(pieceColorSquare(piece));
+  console.log(squareOrigin.row, "---", squareOrigin.col);
+  console.log(pieceColorSquare(board[squareOrigin.row][squareOrigin.col]));
+  if (squareOrigin.row === 0) {
+    console.log("patata");
   }
   return moves;
 };

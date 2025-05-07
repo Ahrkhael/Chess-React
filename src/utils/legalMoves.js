@@ -1,4 +1,5 @@
 import { getPawnMovements } from "../models/Pawn";
+import { getKnightMovements } from "../models/Knight";
 
 // Devuelve movimientos legales del tablero para uno de los jugadores
 export const getLegalMoves = (board, turn) => {
@@ -15,7 +16,8 @@ export const getLegalMoves = (board, turn) => {
       }
     }
   }
-  console.table(moves);
+  //console.table(moves);
+  return moves;
 };
 
 /*
@@ -48,5 +50,7 @@ const pieceColor = (piece) => {
 const movesForPiece = (piece, squareOrigin, board) => {
   if (piece.toLowerCase() === "p") {
     return getPawnMovements(piece, squareOrigin, board);
+  } else if (piece.toLowerCase() === "n") {
+    return getKnightMovements(piece, squareOrigin, board);
   }
 };

@@ -45,9 +45,16 @@ export default function Board() {
       setTurn("white");
     }
 
-    getLegalMoves(newBoard, turn);
+    console.log(getLegalMoves(board, turn));
 
-    setBoard(newBoard);
+    if (
+      getLegalMoves(board, turn).some(
+        (item) =>
+          item.row === squareDestiny.row && item.col === squareDestiny.col
+      )
+    ) {
+      setBoard(newBoard);
+    }
   };
 
   return (
